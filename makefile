@@ -8,4 +8,4 @@ $(EXE)	:	main.cpp tuobao_tcpclient.h
 #.PHONY表示clean是个伪目标文件
 .PHONY	:	clean
 clean	: 
-    -rm -f $(EXE)
+	-rm -f $(EXE)

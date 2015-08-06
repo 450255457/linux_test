@@ -32,9 +32,9 @@ int http_post(tuobao_tcpclient *pclient,char *page,char *request,char **response
     if(tuobao_tcpclient_send(pclient,lpbuf,len)<0){
         return -1;
     }
-printf("·¢ËÇÇ:\n%s\n",lpbuf);
+	printf("发送请求:\n%s\n", lpbuf);
 
-    /*Ê·Åڴæ
+	/*释放内存*/
     if(lpbuf != NULL) free(lpbuf);
     lpbuf = NULL;
 
@@ -43,11 +43,11 @@ printf("·¢ËÇÇ:\n%s\n",lpbuf);
         if(lpbuf) free(lpbuf);
         return -2;
     }
-printf("½ÓÕì:\n%s\n",lpbuf);
+	printf("接收响应:\n%s\n", lpbuf);
 
-    /*ÏӦ´úHTTP/1.0 200 OK|
-     *´ӵÚ0¸öû,µÚλ
-     * */
+	/*响应代码,|HTTP/1.0 200 OK|
+	*从第10个字符开始,第3位
+	* */
     memset(post,0,sizeof(post));
     strncpy(post,lpbuf+9,3);
     if(atoi(post)!=200){
@@ -61,7 +61,7 @@ printf("½ÓÕì:\n%s\n",lpbuf);
         free(lpbuf);
         return -3;
     }
-    ptmp += 4;/*Ì¹ý/
+	ptmp += 4;/*跳过\r\n*/
 
     len = strlen(ptmp)+1;
     *response=(char*)malloc(len);
@@ -72,7 +72,7 @@ printf("½ÓÕì:\n%s\n",lpbuf);
     memset(*response,0,len);
     memcpy(*response,ptmp,len-1);
 
-    /*´Ó·ÓÕµ½ÄÈ³¤¶ÈÈ¹ûÕµ½Ô²»´¦À*/
+    /*从头域找到内容长度,如果没有找到则不处理*/
     ptmp = (char*)strstr(lpbuf,"Content-Length:");
     if(ptmp != NULL){
         char *ptmp2;
@@ -96,14 +96,14 @@ int main(){
     tuobao_tcpclient client;
 
     char *response = NULL;
-    printf("¿ªʼ×°ü
+	printf("开始组包\n");
     tuobao_tcpclient_create(&client,"127.0.0.1",80);
 
     if(http_post(&client,"/i.php","f1=hello",&response)){
-        printf("ʧ°Ü\n");
+		printf("失败!\n");
         exit(2);
     }
-    printf("ÏӦ:\n%d:%s\n",strlen(response),response);
+	printf("响应:\n%d:%s\n", strlen(response), response);
 
     free(response);
     return 0;
