@@ -2,6 +2,7 @@
 #define _TUOBAO_TCP_CLIENT_
 
 #include <unistd.h>
+#include <stdio.h>
 #include <netinet/in.h>  
 #include <sys/socket.h>
 
