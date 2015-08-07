@@ -3,7 +3,7 @@
 int http_post(tuobao_tcpclient *pclient,char *page,char *request,char **response){
 
     char post[300],host[100],content_len[100];
-	char *lpbuf = nullptr;
+	char *lpbuf = NULL;
 	char *ptmp;
     int len=0;
 

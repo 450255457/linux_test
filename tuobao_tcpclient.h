@@ -1,6 +1,7 @@
 #ifndef _TUOBAO_TCP_CLIENT_ 
 #define _TUOBAO_TCP_CLIENT_
 
+#include <unistd.h>
 #include <netinet/in.h>  
 #include <sys/socket.h>
 
