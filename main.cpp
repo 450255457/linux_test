@@ -97,7 +97,7 @@ int main(){
 
     char *response = NULL;
 	printf("开始组包\n");
-    tuobao_tcpclient_create(&client,"127.0.0.1",80);
+    tuobao_tcpclient_create(&client,"115.29.34.8",80);
 
     if(http_post(&client,"/i.php","f1=hello",&response)){
 		printf("失败!\n");
