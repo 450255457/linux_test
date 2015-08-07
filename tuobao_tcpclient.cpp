@@ -29,7 +29,7 @@ int tuobao_tcpclient_create(tuobao_tcpclient *pclient,const char *host, int port
         return -3;
     }
 
-    /*TODO:Ê·ñÃͷÅڴæ?*/
+	/*TODO:是否应该释放内存呢?*/
 
     return 0;
 }
