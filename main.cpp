@@ -3,10 +3,10 @@
 int http_post(tuobao_tcpclient *pclient,char *page,char *request,char **response){
 
     char post[300],host[100],content_len[100];
-    char *lpbuf,*ptmp;
+	char *lpbuf = NULL;
+	char *ptmp;
     int len=0;
 
-    lpbuf = NULL;
     const char *header2="User-Agent: Tuobao Http 0.1\r\nCache-Control: no-cache\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept: */*\r\n";
 
     sprintf(post,"POST %s HTTP/1.0\r\n",page);
