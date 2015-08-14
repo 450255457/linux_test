@@ -61,8 +61,12 @@ void writeJson() {
 	root["name"] = "json";
 	root["array"] = arrayObj;
 
-	root.toStyledString();
-	std::string out = root.toStyledString();
+	// 转换为字符串（带格式）
+	//root.toStyledString();
+	//std::string out = root.toStyledString();
+	// 输出无格式json字符串
+	Json::FastWriter writer;
+	std::string out = writer.write(root);
 	std::cout << out << std::endl;
 }
 
