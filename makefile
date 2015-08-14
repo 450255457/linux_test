@@ -5,7 +5,7 @@ all	:	$(EXE)
 $(EXE)	:	main.cpp tuobao_tcpclient.h
 	g++ -g -o $(EXE) main.cpp tuobao_tcpclient.cpp
 
-#.PHONY±íÊ¾cleanÊÇ¸öÎ±Ä¿±êÎÄ¼þ
+#.PHONYè¡¨ç¤ºcleanæ˜¯ä¸ªä¼ªç›®æ ‡æ–‡ä»¶
 .PHONY	:	clean
 clean	: 
 	-rm -f $(EXE)
