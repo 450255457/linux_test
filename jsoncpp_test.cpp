@@ -46,9 +46,30 @@ void readJson() {
 	}
 }
 
+void writeJson() {
+	using namespace std;
+
+	Json::Value root;
+	Json::Value arrayObj;
+	Json::Value item;
+
+	item["cpp"] = "jsoncpp";
+	item["java"] = "jsoninjava";
+	item["php"] = "support";
+	arrayObj.append(item);
+
+	root["name"] = "json";
+	root["array"] = arrayObj;
+
+	root.toStyledString();
+	std::string out = root.toStyledString();
+	std::cout << out << std::endl;
+}
+
 int main()
 {
-	readJson();
+	writeJson();
+	/*readJson();
 	ParseJsonFromString();
 	string test = "{\"id\":1,\"name\":\"kurama\"}";
 	Json::Reader reader;
@@ -60,6 +81,6 @@ int main()
 			cout << value["id"].asInt() << endl;
 			cout << value["name"].asString() << endl;
 		}
-	}
+	}*/
 	return 0;
 }
