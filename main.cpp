@@ -1,4 +1,4 @@
-#include "tuobao_tcpclient.h"
+﻿#include "tuobao_tcpclient.h"
 
 int http_post(tuobao_tcpclient *pclient,char *page,char *request,char **response){
 
@@ -97,7 +97,7 @@ int main(){
 
     char *response = NULL;
 	printf("开始组包\n");
-    tuobao_tcpclient_create(&client,"127.0.0.1",80);
+    tuobao_tcpclient_create(&client,"127.0.0.1",9995);
 
     if(http_post(&client,"/i.php","f1=hello",&response)){
 		printf("失败!\n");
