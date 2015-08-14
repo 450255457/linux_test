@@ -1,4 +1,4 @@
-EXE	=	Server
+EXE	=	Client
 
 all	:	$(EXE)
 
