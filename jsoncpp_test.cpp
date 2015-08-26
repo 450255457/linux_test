@@ -72,8 +72,8 @@ void writeJson() {
 
 int main()
 {
-	writeJson();
-	/*readJson();
+	//writeJson();
+	readJson();
 	ParseJsonFromString();
 	string test = "{\"id\":1,\"name\":\"kurama\"}";
 	Json::Reader reader;
@@ -85,6 +85,6 @@ int main()
 			cout << value["id"].asInt() << endl;
 			cout << value["name"].asString() << endl;
 		}
-	}*/
+	}
 	return 0;
 }
