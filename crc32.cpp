@@ -78,6 +78,7 @@ int main(){
 			fread(filePtr, fileLen, 1, fp);
 			*(filePtr + fileLen) = 0;
 			crc32 = GenerateCRC32(filePtr, fileLen % 4);
+			printf("crc32 = %ld",crc32);
 		}
 	}
 }
