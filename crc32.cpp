@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 unsigned long byte_int(unsigned char *bytes)
@@ -76,7 +77,7 @@ int main(){
 			fseek(fp, 0L, SEEK_SET);
 			fread(filePtr, fileLen, 1, fp);
 			*(filePtr + fileLen) = 0;
-			crc32 = GenerateCRC32(filePtr, iFileLen);
+			crc32 = GenerateCRC32(filePtr, fileLen);
 		}
 	}
 }
