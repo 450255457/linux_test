@@ -77,7 +77,7 @@ int main(){
 			fseek(fp, 0L, SEEK_SET);
 			fread(filePtr, fileLen, 1, fp);
 			*(filePtr + fileLen) = 0;
-			crc32 = GenerateCRC32(filePtr, fileLen);
+			crc32 = GenerateCRC32(filePtr, fileLen % 4);
 		}
 	}
 }
