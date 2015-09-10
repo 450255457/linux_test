@@ -1,4 +1,7 @@
-unsigned long byte_int(byte *bytes)
+#include <stdio.h>
+#include <string.h>
+
+unsigned long byte_int(unsigned char *bytes)
 {
 	unsigned long  num = bytes[3] & 0xFF;
 	num |= ((bytes[2] << 8) & 0xFF00);
@@ -9,14 +12,14 @@ unsigned long byte_int(byte *bytes)
 
 unsigned long GenerateCRC32(unsigned char *DataBuf, unsigned long len)
 {
-	byte bSrc[4];
+	unsigned char bSrc[4];
 	unsigned   long crc;
 	unsigned   long i, j;
 	unsigned   long temp;
 	crc = 0xFFFFFFFF;
 	for (i = 0; i < len; i++)
 	{
-		ZeroMemory(bSrc, 4);
+		memset(bSrc, 0x00, 4);
 
 		if (i == len - 1)
 		{
