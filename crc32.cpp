@@ -14,7 +14,7 @@ unsigned long byte_int(unsigned char *bytes)
 unsigned long GenerateCRC32(unsigned char *DataBuf, unsigned long len)
 {
 	unsigned char bSrc[4];
-	unsigned   long crc;
+	unsigned   int crc;
 	unsigned   long i, j;
 	unsigned   long temp;
 	crc = 0xFFFFFFFF;
@@ -78,7 +78,7 @@ int main(){
 			fread(filePtr, fileLen, 1, fp);
 			*(filePtr + fileLen) = 0;
 			crc32 = GenerateCRC32(filePtr, fileLen % 4);
-			printf("crc32 = %ld",crc32);
+			printf("crc32 = %x",crc32);
 		}
 	}
 }
