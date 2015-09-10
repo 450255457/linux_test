@@ -72,19 +72,19 @@ void writeJson() {
 
 int main()
 {
-	//writeJson();
-	readJson();
-	ParseJsonFromString();
-	string test = "{\"id\":1,\"name\":\"kurama\"}";
-	Json::Reader reader;
-	Json::Value value;
-	if (reader.parse(test, value))
-	{
-		if (!value["id"].isNull())
-		{
-			cout << value["id"].asInt() << endl;
-			cout << value["name"].asString() << endl;
-		}
-	}
+	writeJson();
+	//readJson();
+	//ParseJsonFromString();
+//	string test = "{\"id\":1,\"name\":\"kurama\"}";
+//	Json::Reader reader;
+//	Json::Value value;
+//	if (reader.parse(test, value))
+//	{
+//		if (!value["id"].isNull())
+//		{
+//			cout << value["id"].asInt() << endl;
+//			cout << value["name"].asString() << endl;
+//		}
+//	}
 	return 0;
 }
