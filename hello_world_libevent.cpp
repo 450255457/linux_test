@@ -1,9 +1,9 @@
 ﻿/*****************************************
 > File Name : hello_world_libevent.cpp
 > Description : libevent hello world demo
-
+	g++ -g -o hello_world_libevent hello_world_libevent.cpp -levent
 > Author : linden
-> Date : 2015-08-31
+> Date : 2015-09-13
 *******************************************/
 
 #include <sys/signal.h>
