@@ -14,7 +14,7 @@ void signal_cb(int fd, short evnet, void *argc)
 	struct event_base* base = (event_base*)argc;
 	struct timeval delay = { 2, 0 };
 	printf("Caught an interrupt signal;exiting cleanly in two seconds...\n");
-	event_base_loopexit(base, &delay)
+	event_base_loopexit(base, &delay);
 }
 
 void timeout_cb(int fd, short event, void* argc)
