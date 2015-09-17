@@ -4,16 +4,14 @@
 #ifndef _COMM_STRINGS_H_
 #define _COMM_STRINGS_H_
 
-//#include <string>
-//#include <vector>
+#include <vector>
 //#include "map"
-//#include <utility>
-//#include <cstdlib>
-//#include <algorithm>
+#include <utility>
+#include <cstdlib>
+#include <algorithm>
 #include <string>
-//#include <vector>
-//#include <sstream>
-//#include <cctype>
+#include <sstream>
+#include <cctype>
 //#include "stdarg.h"
 //#include "stdio.h"
 
