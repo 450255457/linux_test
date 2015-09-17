@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-	string str = "	1 2	3	";
+	std::string str = "	1 2	3	";
 	printf("str = %s\n", str.c_str());
 	Trim(str);
 	printf("str = %s\n", str.c_str());
