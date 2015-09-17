@@ -1,7 +1,7 @@
 ﻿/*****************************************
 > File Name : comm_strings_main.cpp
 > Description : some public function
-	g++ -g -o comm_strings_main.cpp comm_strings.h
+	g++ -g -o comm_strings_main comm_strings_main.cpp comm_strings.h
 > Author : linden
 > Date : 2015-08-07
 *******************************************/

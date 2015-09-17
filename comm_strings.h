@@ -4,6 +4,7 @@
 #ifndef _COMM_STRINGS_H_
 #define _COMM_STRINGS_H_
 
+#include <stdio.h>
 #include <string>
 #include <vector>
 #include "map"
