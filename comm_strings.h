@@ -4,16 +4,10 @@
 #ifndef _COMM_STRINGS_H_
 #define _COMM_STRINGS_H_
 
+#include <string>
 #include <vector>
 #include "map"
-#include <utility>
-#include <cstdlib>
-#include <algorithm>
-#include <string>
-#include <sstream>
-#include <cctype>
-#include "stdarg.h"
-#include "stdio.h"
+using namespace std;
 
 #ifdef __cpluscplus
 #define STRING_API extern

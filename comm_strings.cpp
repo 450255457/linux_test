@@ -1,6 +1,16 @@
 ﻿/*************************************************************
 * 文件描述：字符串的常 用操作类
 **************************************************************/
+#include <utility>
+#include <cstdlib>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include "map"
+#include <sstream>
+#include <cctype>
+#include "stdarg.h"
+#include "stdio.h"
 
 #include "comm_strings.h"
 
