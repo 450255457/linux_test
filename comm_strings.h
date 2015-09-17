@@ -12,8 +12,8 @@
 #include <string>
 #include <sstream>
 #include <cctype>
-//#include "stdarg.h"
-//#include "stdio.h"
+#include "stdarg.h"
+#include "stdio.h"
 
 #ifdef __cpluscplus
 #define STRING_API extern
