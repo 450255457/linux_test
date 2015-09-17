@@ -10,13 +10,12 @@
 //#include <utility>
 //#include <cstdlib>
 //#include <algorithm>
-//#include <string>
+#include <string>
 //#include <vector>
 //#include <sstream>
 //#include <cctype>
 //#include "stdarg.h"
 //#include "stdio.h"
-using namespace std;
 
 #ifdef __cpluscplus
 #define STRING_API extern

@@ -1,11 +1,14 @@
 ﻿/*****************************************
-> File Name : public_function.cpp
+> File Name : comm_strings_main.cpp
 > Description : some public function
+	g++ -g -o comm_strings_main.cpp comm_strings.h
 > Author : linden
 > Date : 2015-08-07
 *******************************************/
 
 #include "comm_strings.h"
+
+using namespace std;
 
 int main()
 {
