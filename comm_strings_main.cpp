@@ -1,4 +1,11 @@
-﻿#include "comm_strings.h"
+﻿/*****************************************
+> File Name : public_function.cpp
+> Description : some public function
+> Author : linden
+> Date : 2015-08-07
+*******************************************/
+
+#include "comm_strings.h"
 
 int main()
 {
