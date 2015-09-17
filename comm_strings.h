@@ -5,7 +5,7 @@
 #define _COMM_STRINGS_H_
 
 #include <vector>
-//#include "map"
+#include "map"
 #include <utility>
 #include <cstdlib>
 #include <algorithm>
