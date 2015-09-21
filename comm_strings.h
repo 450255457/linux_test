@@ -16,17 +16,12 @@ void 指针可以指向函数，但不能指向 C++ 中的类成员。
 #include <stdio.h>
 #include <string>
 #include <vector>
-
 #include <utility>
 #include <cstdlib>
 #include <algorithm>
-//#include <string>
-//#include <vector>
-//#include "map"
 #include <sstream>
 #include <cctype>
 #include "stdarg.h"
-#include "stdio.h"
 #include "map"
 
 using namespace std;
