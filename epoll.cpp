@@ -7,6 +7,8 @@
 
 #include "epoll.h"
 
+using namespace std;
+
 struct fds
 {
 	int epollfd;
@@ -76,7 +78,8 @@ void* worker(void* arg)
 	printf("end thread receiving data on fd: %d\n", sockfd);
 }
 
-int socket_bind_listen(const char *ip, int nPort){
+int socket_bind_listen(const char *ip, int nPort)
+{
 	int listen_fd;
 	struct sockaddr_in server_addr;
 	listen_fd = socket(AF_INET, SOCK_STREAM, 0);	//protocol通常为0，表示按给定的域和套接字类型选择默认协议

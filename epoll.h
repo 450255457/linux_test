@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
+#include <err.h>
 #include <string.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -27,5 +28,6 @@
 #define SERVERPORT	8090
 #define MAX_EVENT_NUMBER 1024
 #define BUFFER_SIZE 1024
+#define CONNECTION_BACKLOG	5
 
 #endif
