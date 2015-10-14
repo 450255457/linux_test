@@ -1,21 +1,11 @@
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/epoll.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <assert.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <pthread.h>
+ï»¿/*****************************************
+> File Name : epoll.cpp
+> Description : epoll demo
+> Author : linden
+> Date : 2015-10-13
+*******************************************/
 
-#define IPADDRESS	"0.0.0.0"
-#define SERVERPORT	8090
-#define MAX_EVENT_NUMBER 1024
-#define BUFFER_SIZE 1024
+#include "epoll.h"
 
 struct fds
 {
@@ -86,22 +76,46 @@ void* worker(void* arg)
 	printf("end thread receiving data on fd: %d\n", sockfd);
 }
 
-int runServer(void) {
-	
-
-}
-int main(int argc, char* argv[])
-{
-	/*if (argc <= 2)
-	{
-		printf("usage: %s ip_address port_number\n", basename(argv[0]));
-		return 1;
+int socket_bind_listen(const char *ip, int nPort){
+	int listen_fd;
+	struct sockaddr_in server_addr;
+	listen_fd = socket(AF_INET, SOCK_STREAM, 0);	//protocolé€šå¸¸ä¸º0ï¼Œè¡¨ç¤ºæŒ‰ç»™å®šçš„åŸŸå’Œå¥—æŽ¥å­—ç±»åž‹é€‰æ‹©é»˜è®¤åè®®
+	if (listen_fd == -1){
+		cout << "Error->socket:" << strerror(errno) << endl;
+		return -1;
 	}
-	const char* ip = argv[1];
-	int port = atoi(argv[2]);*/
+	memset(&server_addr, 0, sizeof(server_addr));
+	server_addr.sin_family = AF_INET;
+	//server_addr.sin_addr.s_addr = INADDR_ANY;
+	//inet_ptonå°†ç‚¹åˆ†åè¿›åˆ¶IPè½¬æ¢ä¸ºæ•´æ•°
+	inet_pton(AF_INET, ip, &server_addr.sin_addr);
+	server_addr.sin_port = htons(nPort);
 
+	//è®¾ç½®å‘é€æ—¶é™å’ŒæŽ¥æ”¶æ—¶é™
+	struct timeval timeout = { 100, 0 };	//100s
+	setsockopt(listen_fd, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeout, sizeof(struct timeval));
+	setsockopt(listen_fd, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, sizeof(struct timeval));
+
+	//å…è®¸åœ°å€çš„ç«‹å³é‡ç”¨	
+	int opt = 1;
+	if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0){
+		printf("Error->setsockopt:%s\n", strerror(errno));
+		return -1;
+	}
+
+	if (bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
+		err(1, "bind failed");
+	}
+	if (listen(listen_fd, CONNECTION_BACKLOG) < 0) {
+		err(1, "listen failed");
+	}
+	return listen_fd;
+}
+
+int runServer(void) 
+{
 	int listen_fd = socket_bind_listen(IPADDRESS, SERVERPORT);
-	struct epoll_event events[MAX_EVENT_NUMBER];
+	epoll_event events[MAX_EVENT_NUMBER];	//æ˜¯å¦è¦åŠ struct
 	int epollfd = epoll_create1(0);
 	if (epollfd == -1) {
 		perror("epoll_create1");
@@ -109,10 +123,10 @@ int main(int argc, char* argv[])
 	}
 	addfd(epollfd, listen_fd, false);
 
-	while (1)
+	for (;;)
 	{
 		int nfds = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, -1);
-		if (nfds < 0)
+		if (nfds == -1)
 		{
 			perror("epoll_wait");
 			exit(EXIT_FAILURE);
@@ -125,7 +139,7 @@ int main(int argc, char* argv[])
 			{
 				struct sockaddr_in client_address;
 				socklen_t client_addrlength = sizeof(client_address);
-				int connfd = accept(listenfd, (struct sockaddr*)&client_address, &client_addrlength);
+				int connfd = accept(listen_fd, (struct sockaddr*)&client_address, &client_addrlength);
 				addfd(epollfd, connfd, true);
 			}
 			else if (events[i].events & EPOLLIN)
@@ -142,45 +156,17 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
-
 	close(listen_fd);
+}
+int main(int argc, char* argv[])
+{
+	/*if (argc <= 2)
+	{
+		printf("usage: %s ip_address port_number\n", basename(argv[0]));
+		return 1;
+	}
+	const char* ip = argv[1];
+	int port = atoi(argv[2]);*/
+	runServer();
 	return 0;
 }
-
-
-int socket_bind_listen(const char *ip, int nPort){
-	int listen_fd;
-	struct sockaddr_in server_addr;
-	listen_fd = socket(AF_INET, SOCK_STREAM, 0);	//protocolÍ¨³£Îª0£¬±íÊ¾°´¸ø¶¨µÄÓòºÍÌ×½Ó×ÖÀàÐÍÑ¡ÔñÄ¬ÈÏÐ­Òé
-	if (listen_fd == -1){
-		cout << "Error->socket:" << strerror(errno) << endl;
-		return -1;
-	}
-	memset(&server_addr, 0, sizeof(server_addr));
-	server_addr.sin_family = AF_INET;
-	//server_addr.sin_addr.s_addr = INADDR_ANY;
-	//inet_pton½«µã·ÖÊ®½øÖÆIP×ª»»ÎªÕûÊý
-	inet_pton(AF_INET, ip, &server_addr.sin_addr);
-	server_addr.sin_port = htons(nPort);
-
-	//ÉèÖÃ·¢ËÍÊ±ÏÞºÍ½ÓÊÕÊ±ÏÞ
-	struct timeval timeout = { 100, 0 };	//100s
-	setsockopt(listen_fd, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeout, sizeof(struct timeval));
-	setsockopt(listen_fd, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, sizeof(struct timeval));
-
-	//ÔÊÐíµØÖ·µÄÁ¢¼´ÖØÓÃ	
-	int opt = 1;
-	if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0){
-		printf("Error->setsockopt:%s\n", strerror(errno));
-		return -1;
-	}
-
-	if (bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-		err(1, "bind failed");
-	}
-	if (listen(listen_fd, CONNECTION_BACKLOG) < 0) {
-		err(1, "listen failed");
-	}
-	return listen_fd;
-}
-
