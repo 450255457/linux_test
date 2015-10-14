@@ -9,19 +9,20 @@
 #ifndef _EPOLL_H_
 #define _EPOLL_H_
 
+#include <iostream>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/epoll.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <assert.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <errno.h>
 #include <err.h>
 #include <string.h>
 #include <fcntl.h>
-#include <stdlib.h>
 #include <pthread.h>
 
 #define IPADDRESS	"0.0.0.0"
