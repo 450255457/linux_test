@@ -1,19 +1,17 @@
 ﻿/*****************************************
-> File Name : epoll.cpp
-> Description : epoll demo
+> File Name : tcp_server.cpp
+> Description : tcp_server
 > Author : linden
 > Date : 2015-10-13
 *******************************************/
 
-#include "epoll.h"
+#include "tcp_server.h"
+#include "thread_pool.h"
 
 using namespace std;
 
-struct fds
-{
-	int epollfd;
-	int sockfd;
-};
+CTcpServer Server;
+CThreadPool thread_pool;
 
 int setnonblocking(int fd)
 {
@@ -23,6 +21,7 @@ int setnonblocking(int fd)
 	return old_option;
 }
 
+/*将fd上的EPOLLIN和EPOLLET事件注册到epollfd指示的epoll内核事件表中，参数oneshot指定是否注册fd上的EPOLLONESHOT事件*/
 void addfd(int epollfd, int fd, bool oneshot)
 {
 	epoll_event event;
@@ -36,7 +35,7 @@ void addfd(int epollfd, int fd, bool oneshot)
 	setnonblocking(fd);
 }
 
-void reset_oneshot(int epollfd, int fd)
+void CTcpServer::reset_oneshot(int epollfd, int fd)
 {
 	epoll_event event;
 	event.data.fd = fd;
@@ -46,39 +45,10 @@ void reset_oneshot(int epollfd, int fd)
 
 void* worker(void* arg)
 {
-	int sockfd = ((fds*)arg)->sockfd;
-	int epollfd = ((fds*)arg)->epollfd;
-	printf("start new thread to receive data on fd: %d\n", sockfd);
-	char buf[BUFFER_SIZE];
-	memset(buf, '\0', BUFFER_SIZE);
-	while (1)
-	{
-		int ret = recv(sockfd, buf, 10/*BUFFER_SIZE - 1*/, 0);
-		if (ret == 0)
-		{
-			close(sockfd);
-			printf("foreiner closed the connection\n");
-			break;
-		}
-		else if (ret < 0)
-		{
-			if (errno == EAGAIN)
-			{
-				reset_oneshot(epollfd, sockfd);
-				printf("read later\n");
-				break;
-			}
-		}
-		else
-		{
-			printf("get content: %s\n", buf);
-			sleep(5);
-		}
-	}
-	printf("end thread receiving data on fd: %d\n", sockfd);
+	
 }
 
-int socket_bind_listen(const char *ip, int nPort)
+int CTcpServer::socket_bind_listen(const char *ip, int nPort)
 {
 	int listen_fd;
 	struct sockaddr_in server_addr;
@@ -115,26 +85,31 @@ int socket_bind_listen(const char *ip, int nPort)
 	return listen_fd;
 }
 
-int runServer(void) 
+int CTcpServer::runServer(void)
 {
 	int listen_fd = socket_bind_listen(IPADDRESS, SERVERPORT);
-	struct epoll_event events[MAX_EVENT_NUMBER];	//是否要加struct
+	struct epoll_event events[MAX_EVENT_NUMBER];	//内核需要监听的事
 	int epollfd = epoll_create1(0);
 	if (epollfd == -1) {
 		perror("epoll_create1");
 		exit(EXIT_FAILURE);
 	}
 	addfd(epollfd, listen_fd, false);
-
+	thread_pool.threadpool_init();
 	for (;;)
 	{
-		int nfds = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, -1);
-		if (nfds == -1)
+		int nfds = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, -1);	//等待I/O事件
+		if (0 == nfds)
 		{
-			perror("epoll_wait");
-			exit(EXIT_FAILURE);
+			printf("TcpServer is running...\n");
+			continue;
 		}
-
+		else if ((nfds < 0) && (errno != EINTR))	//epoll遭遇EINTR(Interrupted system call)
+		{			
+			cout << "Error->epoll_wait:" << strerror(errno) << endl;
+			break;
+		}
+		//ET模式
 		for (int i = 0; i < nfds; ++i)
 		{
 			int sockfd = events[i].data.fd;
@@ -147,29 +122,32 @@ int runServer(void)
 			}
 			else if (events[i].events & EPOLLIN)
 			{
-				pthread_t thread;
-				fds fds_for_new_worker;
-				fds_for_new_worker.epollfd = epollfd;
-				fds_for_new_worker.sockfd = sockfd;
-				pthread_create(&thread, NULL, worker, (void*)&fds_for_new_worker);
+				m_arglocker.lock();
+				thread_para arg;
+				arg.epollfd = epollfd;
+				arg.sockfd = sockfd;
+				m_arglocker.unlock();
+				thread_pool.append(&arg);
 			}
 			else
 			{
-				printf("something else happened \n");
+				printf("Error:something else happened \n");
 			}
 		}
 	}
 	close(listen_fd);
+	close(epollfd);
+	thread_pool.threadpool_destroy();
 }
 int main(int argc, char* argv[])
 {
 	/*if (argc <= 2)
 	{
-		printf("usage: %s ip_address port_number\n", basename(argv[0]));
-		return 1;
+	printf("usage: %s ip_address port_number\n", basename(argv[0]));
+	return 1;
 	}
 	const char* ip = argv[1];
 	int port = atoi(argv[2]);*/
-	runServer();
+	Server.runServer();
 	return 0;
 }
