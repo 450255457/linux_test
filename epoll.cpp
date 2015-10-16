@@ -53,7 +53,7 @@ void* worker(void* arg)
 	memset(buf, '\0', BUFFER_SIZE);
 	while (1)
 	{
-		int ret = recv(sockfd, buf, BUFFER_SIZE - 1, 0);
+		int ret = recv(sockfd, buf, 10/*BUFFER_SIZE - 1*/, 0);
 		if (ret == 0)
 		{
 			close(sockfd);
@@ -118,7 +118,7 @@ int socket_bind_listen(const char *ip, int nPort)
 int runServer(void) 
 {
 	int listen_fd = socket_bind_listen(IPADDRESS, SERVERPORT);
-	epoll_event events[MAX_EVENT_NUMBER];	//是否要加struct
+	struct epoll_event events[MAX_EVENT_NUMBER];	//是否要加struct
 	int epollfd = epoll_create1(0);
 	if (epollfd == -1) {
 		perror("epoll_create1");
