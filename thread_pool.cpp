@@ -77,7 +77,7 @@ bool CThreadPool::append(void* request)
 //工作线程运行的函数,它不断从工作队列中取出任务并执行之
 void* CThreadPool::worker(void* arg)
 {
-	threadpool* pool = (threadpool*)arg;
+	CThreadPool* pool = (CThreadPool*)arg;
 	pool->run();
 	return pool;
 }
@@ -105,7 +105,7 @@ void CThreadPool::run()
 		thread_para *thread_arg = (thread_para *)request;
 		int sockfd = thread_arg->sockfd;
 		int epollfd = thread_arg->epollfd;
-		//printf( "start new thread to receive data on sockfd: %d\n", sockfd );
+		printf( "start new thread to receive data on sockfd: %d\n", sockfd );
 		char recv_buf[BUFMAXSIZE];
 		memset(recv_buf, '\0', BUFMAXSIZE);
 		//循环读取socket上的数据,直到遇到EAGAIN错误.
@@ -125,9 +125,9 @@ void CThreadPool::run()
 				}
 			}
 			//数据处理
-			printf("get content: %s\n", recv_buf);
+			printf("get content: %s,sockfd = %d,epoll = %d\n", recv_buf,sockfd, epollfd);
 		}
-		//printf( "end thread receiving data on fd: %d\n", sockfd );
+		printf( "end thread receiving data on fd: %d\n", sockfd );
 		//printf("Test:sockfd = %d,epoll = %d\n",sockfd,epollfd);
 		//printf("pthread_self = %x\n",pthread_self());
 	}
