@@ -8,13 +8,16 @@
 #include "thread_pool.h"
 #include "tcp_server.h"
 
+CTcpServer Server;
+
 /************************************************
-函数名称:threadpool_init
-函数功能:线程池的初始化
-输入参数:int thread_number,线程池中线程的数量
-int max_requests,请求队列中最多允许的,等待处理的请求的数量
-输出参数:
-返回说明:0
+Function : threadpool_init
+Description : 线程池的初始化
+Input : int thread_number,线程池中线程的数量
+		int max_requests,请求队列中最多允许的,等待处理的请求的数量
+Output :
+Return : 0
+Others :
 *************************************************/
 int CThreadPool::threadpool_init(int thread_number, int max_requests){
 	m_stop = false;
@@ -53,11 +56,12 @@ void CThreadPool::threadpool_destroy(){
 }
 
 /************************************************
-函数名称:append
-函数功能:线程池中任务队列的添加
-输入参数:void* request,传进来的参数指针
-输出参数:
-返回说明:true/false
+Function : append
+Description : 线程池中任务队列的添加
+Input : void* request,传进来的参数指针
+Output :
+Return : true/false
+Others :
 *************************************************/
 bool CThreadPool::append(void* request)
 {
@@ -105,12 +109,12 @@ void CThreadPool::run()
 		thread_para *thread_arg = (thread_para *)request;
 		int sockfd = thread_arg->sockfd;
 		int epollfd = thread_arg->epollfd;
-		printf( "start new thread to receive data on sockfd: %d\n", sockfd );
-		char recv_buf[BUFMAXSIZE];
-		memset(recv_buf, '\0', BUFMAXSIZE);
+		printf("start new thread to receive data on sockfd: %d\n", sockfd);
+		char recv_buf[BUFFER_SIZE];
+		memset(recv_buf, '\0', BUFFER_SIZE);
 		//循环读取socket上的数据,直到遇到EAGAIN错误.
 		while (1){
-			int ret = recv(sockfd, recv_buf, BUFMAXSIZE - 1, 0);
+			int ret = recv(sockfd, recv_buf, BUFFER_SIZE - 1, 0);
 			if (ret == 0){
 				close(sockfd);
 				//printf( "foreiner closed the connection\n" );   

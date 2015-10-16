@@ -38,7 +38,7 @@ class CTcpServer
 public:
 	CTcpServer();
 	~CTcpServer();
-	int socket_bind_listen(const char *ip, int nPort);
+	int socket_bind_listen(const char *ip,int nPort);
 	int runServer(void);
 	void reset_oneshot(int epollfd, int fd)
 protected:

@@ -20,7 +20,7 @@ typedef struct _thread_para
 {
 	int epollfd;
 	int sockfd;
-	char buf[BUFMAXSIZE];
+	char buf[BUFFER_SIZE];
 }thread_para;
 
 //线程池类

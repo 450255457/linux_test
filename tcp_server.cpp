@@ -48,7 +48,7 @@ void* worker(void* arg)
 	
 }
 
-int CTcpServer::socket_bind_listen(const char *ip, int nPort)
+int CTcpServer::socket_bind_listen(const char *ip,int nPort)
 {
 	int listen_fd;
 	struct sockaddr_in server_addr;
