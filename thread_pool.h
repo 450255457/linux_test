@@ -5,8 +5,8 @@
 > Date : 2015-10-16
 *******************************************/
 
-#ifndef THREADPOOL_H
-#define THREADPOOL_H
+#ifndef _THREADPOOL_H_
+#define _THREADPOOL_H_
 
 #include <unistd.h>
 #include <list>
