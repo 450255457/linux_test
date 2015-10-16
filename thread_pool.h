@@ -15,6 +15,7 @@
 #include <pthread.h>
 
 #include "locker.h"
+#include "tcp_server.h"
 
 typedef struct _thread_para
 {
