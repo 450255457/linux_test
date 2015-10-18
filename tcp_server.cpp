@@ -43,11 +43,6 @@ void CTcpServer::reset_oneshot(int epollfd, int fd)
 	epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &event);
 }
 
-void* worker(void* arg)
-{
-	
-}
-
 int CTcpServer::socket_bind_listen(const char *ip,int nPort)
 {
 	int listen_fd;
