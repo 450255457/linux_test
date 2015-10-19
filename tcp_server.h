@@ -27,10 +27,10 @@
 
 #include "locker.h"
 
-#define IPADDRESS	"0.0.0.0"
-#define SERVERPORT	8090
-#define MAX_EVENT_NUMBER 10
-#define BUFFER_SIZE 1024
+#define IPADDRESS			"0.0.0.0"
+#define SERVERPORT			8090
+#define MAX_EVENT_NUMBER	10
+#define BUFFER_SIZE			1024
 #define CONNECTION_BACKLOG	5
 
 class CTcpServer
