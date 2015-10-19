@@ -117,7 +117,7 @@ void CThreadPool::run()
 		thread_para *thread_arg = (thread_para *)request;
 		int sockfd = thread_arg->sockfd;
 		int epollfd = thread_arg->epollfd;
-		printf("start new thread to receive data on sockfd: %d\n", sockfd);
+		//printf("start new thread to receive data on sockfd: %d\n", sockfd);
 		char recv_buf[BUFFER_SIZE];
 		memset(recv_buf, '\0', BUFFER_SIZE);
 		//循环读取socket上的数据,直到遇到EAGAIN错误.
@@ -138,8 +138,13 @@ void CThreadPool::run()
 			}
 			//数据处理
 			printf("get content: %s,sockfd = %d,epoll = %d\n", recv_buf,sockfd, epollfd);
+			if (send(sockfd, recv_buf, strlen(recv_buf), 0) < 0)
+			{
+				puts("Send failed");
+				break;;
+			}
 		}
-		printf( "end thread receiving data on fd: %d\n", sockfd );
+		//printf( "end thread receiving data on fd: %d\n", sockfd );
 		//printf("Test:sockfd = %d,epoll = %d\n",sockfd,epollfd);
 		//printf("pthread_self = %x\n",pthread_self());
 	}
