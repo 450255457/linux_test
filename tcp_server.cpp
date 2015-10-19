@@ -10,7 +10,6 @@
 
 using namespace std;
 
-CTcpServer Server;
 CThreadPool thread_pool;
 
 CTcpServer::CTcpServer()
@@ -142,6 +141,7 @@ int CTcpServer::runServer(void)
 	close(epollfd);
 	thread_pool.threadpool_destroy();
 }
+
 int main(int argc, char* argv[])
 {
 	/*if (argc <= 2)
@@ -151,6 +151,8 @@ int main(int argc, char* argv[])
 	}
 	const char* ip = argv[1];
 	int port = atoi(argv[2]);*/
+
+	CTcpServer Server;
 	Server.runServer();
 	return 0;
 }
