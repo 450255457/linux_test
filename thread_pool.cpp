@@ -10,6 +10,14 @@
 
 CTcpServer Server;
 
+CThreadPool::CThreadPool(){
+
+}
+
+CThreadPool::~CThreadPool(){
+
+}
+
 /************************************************
 Function : threadpool_init
 Description : 线程池的初始化

@@ -48,11 +48,4 @@ private:
     bool m_stop;					//是否结束线程
 };
 
-CThreadPool::CThreadPool(){
-
-}
-
-CThreadPool::~CThreadPool(){
-
-}
 #endif

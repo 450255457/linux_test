@@ -13,6 +13,14 @@ using namespace std;
 CTcpServer Server;
 CThreadPool thread_pool;
 
+CTcpServer::CTcpServer()
+{
+}
+
+CTcpServer::~CTcpServer()
+{
+}
+
 int setnonblocking(int fd)
 {
 	int old_option = fcntl(fd, F_GETFL);

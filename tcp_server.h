@@ -47,11 +47,4 @@ private:
 	locker m_arglocker;	//传入队列的锁
 };
 
-CTcpServer::CTcpServer()
-{
-}
-
-CTcpServer::~CTcpServer()
-{
-}
 #endif
