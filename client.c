@@ -1,9 +1,18 @@
+/*****************************************
+> File Name : client.c
+> Description : g++ -g -o Client client.c
+> Author : linden
+> Date : 2015-10-29
+*******************************************/
+
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <errno.h>
