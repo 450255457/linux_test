@@ -6,6 +6,9 @@
 > Date : 2016-01-22
 *******************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
+
 int main(int argc, char *argv[])
 {
 	int i = 0;
