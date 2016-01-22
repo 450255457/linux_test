@@ -20,11 +20,11 @@ int main(int argc, char *argv[])
 	}
 	else if (0 == pid)
 	{
-		printf("This is the child process: %d, ppid : %d\n", getpid(), getppid());
+		printf("This is the child process: %d.\n", getpid());
 	}
 	else
 	{
-		printf("This is the parent process: %d, ppid : %d\n", getpid(), getppid());
+		printf("This is the parent process: %d.\n", getpid());
 	}
 	
 	return 0;
