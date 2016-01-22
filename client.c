@@ -83,8 +83,8 @@ int main(int argc,char **argv)
 	int iscon=0;
 	while(1)
 	{
-		char data[MAX_SIZE];
-		char recvbuff[MAX_SIZE] = NULL;
+		char data[MAX_SIZE] = { 0 };
+		char recvbuff[MAX_SIZE] = {0};
 		int i=atoi(argv[3]);
 		struct timeval start,end;
 		gettimeofday(&start,NULL);
