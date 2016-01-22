@@ -84,6 +84,7 @@ int main(int argc,char **argv)
 	while(1)
 	{
 		char data[MAX_SIZE];
+		char recvbuff[MAX_SIZE] = NULL;
 		int i=atoi(argv[3]);
 		struct timeval start,end;
 		gettimeofday(&start,NULL);
@@ -105,7 +106,13 @@ int main(int argc,char **argv)
 				printf("send data failed:%s\n",strerror(errno));
 				exit(1);
 			}
-			printf("send success:%d\n",client_socket);
+			printf("send success:%d, send_buff:%s\n", client_socket, data);
+			if (recv(client_socket, recvbuff, MAX_SIZE,0) < 0)
+			{
+				printf("recv data failed:%s\n", strerror(errno));
+				exit(1);
+			}
+			printf("recv success:%d, recv_buff:%s\n", client_socket, recvbuff);
 			usleep(10);
 		}
 		gettimeofday(&end,NULL);

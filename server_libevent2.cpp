@@ -1,3 +1,7 @@
+/*
+	g++ -g -o server_libevent server_libevent2.cpp -levent
+*/
+
 /* For sockaddr_in */
 #include <netinet/in.h>
 /* For socket functions */
