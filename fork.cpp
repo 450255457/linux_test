@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
-#include <sys/types.h>
 
 int main(int argc, char *argv[])
 {
@@ -21,13 +20,12 @@ int main(int argc, char *argv[])
 	}
 	else if (0 == pid)
 	{
-		printf("This is the child process: %d.\n", getpid());
+		printf("This is the child process: %d, ppid : %d\n", getpid(), getppid());
 	}
 	else
 	{
-		printf("This is the parent process: %d.\n", getpid());
+		printf("This is the parent process: %d, ppid : %d\n", getpid(), getppid());
 	}
 	
-	printf("pid = %d, ppid = %d\n", getpid(), getppid());
 	return 0;
 }
