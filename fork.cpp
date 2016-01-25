@@ -37,16 +37,17 @@ void pre_exit(int status)
 int main(int argc, char *argv[])
 {
 	pid_t pid;
-	/*pid = fork();
+	pid = fork();
 	if (0 > pid)
 	{
-	perror("fork error:");
+		perror("fork error:");
 	}
 	else if (0 == pid)
 	{
-	printf("This is the child process: %d, ppid = %d.\n", getpid(),getppid());
-	exit(0);
-	}*/
+		sleep(2);
+		printf("This is the child process: %d, ppid = %d.\n", getpid(),getppid());
+		exit(0);
+	}
 	printf("This is the parent process: %d.\n", getpid());
 
 	//判断子进程结束：wait子进程结束
