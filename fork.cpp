@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
 	//判断子进程结束：wait子进程结束
 	int status;
-	if (wait(&status) != pid) 
+	if (wait(&status) != 0) 
 	{
 		perror("Error --> wait:");
 	}
