@@ -1,6 +1,6 @@
-/*****************************************
+﻿/*****************************************
 > File Name : fork.cpp
-> Description : forkʾ������
+> Description : fork示例代码
 	gcc -g -o fork fork.cpp
 > Author : linden
 > Date : 2016-01-22
@@ -26,6 +26,13 @@ int main(int argc, char *argv[])
 	{
 		printf("This is the parent process: %d.\n", getpid());
 	}
-	
+
+	//判断子进程结束：wait子进程结束或者捕捉信号SIGCHLD
+	int status;
+	if (wait(status) != pid) 
+	{
+		perror("Error --> wait:");
+	}
+	printf("status = %d\n", status);
 	return 0;
 }
