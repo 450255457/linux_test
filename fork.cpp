@@ -34,6 +34,6 @@ int main(int argc, char *argv[])
 	{
 		perror("Error --> wait:");
 	}
-	printf("exit status:%d.\n",WEXITSTATUS(status);
+	printf("exit status:%d.\n",WEXITSTATUS(status));
 	return 0;
 }
