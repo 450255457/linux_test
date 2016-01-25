@@ -18,14 +18,14 @@ int main(void)
 
 	if ((pid = fork()) < 0)
 	{
-		fprintf(stderr, "Fork error!/n");
+		fprintf(stderr, "Fork error!\n");
 		exit(-1);
 	}
 	else if (pid == 0) /* first child */
 	{
 		if ((pid = fork()) < 0)
 		{
-			fprintf(stderr, "Fork error!/n");
+			fprintf(stderr, "Fork error!\n");
 			exit(-1);
 		}
 		else if (pid > 0)
@@ -37,13 +37,13 @@ int main(void)
 		* we're done, init will reap our status.
 		*/
 		sleep(2);
-		printf("Second child, parent pid = %d/n", getppid());
+		printf("Second child, parent pid = %d\n", getppid());
 		exit(0);
 	}
 
 	if (waitpid(pid, NULL, 0) != pid) /* wait for first child */
 	{
-		fprintf(stderr, "Waitpid error!/n");
+		fprintf(stderr, "Waitpid error!\n");
 		exit(-1);
 	}
 
