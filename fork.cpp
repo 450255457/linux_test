@@ -6,10 +6,11 @@
 > Date : 2016-01-25
 *******************************************/
 
-#include <unistd.h>    
-#include <stdio.h>    
-#include <sys/wait.h>    
-#include <sys/types.h>    
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 int main(void)
 {
