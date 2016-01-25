@@ -13,6 +13,26 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+void pre_exit(int status)
+{
+	if (WIFEXITED(status))
+	{
+		printf("normal termination,exit status = %d\n", WEXITSTATUS(stauts));
+	}
+	else if (WIFSIGNALED(status))
+	{
+		printf("abnormal termination,signal number = %d%s\n", WTERMSIG(status),
+		#ifdef WCOREDUMP
+					WCOREDUMP(status) ? " (core fire generated) " : "");
+		#else
+					"");
+		#endif
+	else if (WIFSTOPPED(status))
+	{
+		printf("child stopped,signal number = %d\n",WSTOPSIG(status));
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	pid_t pid;
@@ -34,6 +54,6 @@ int main(int argc, char *argv[])
 	{
 		perror("Error --> wait:");
 	}
-	printf("exit status:%d.\n",WEXITSTATUS(status));
+	pre_exit(status);
 	return 0;
 }
