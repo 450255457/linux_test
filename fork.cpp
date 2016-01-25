@@ -22,19 +22,17 @@ int main(int argc, char *argv[])
 	}
 	else if (0 == pid)
 	{
-		printf("This is the child process: %d.\n", getpid());
+		printf("This is the child process: %d, ppid = %d.\n", getpid(),getppid());
+		exit(0);
 	}
-	else
-	{
-		printf("This is the parent process: %d.\n", getpid());
-	}
+	printf("This is the parent process: %d.\n", getpid());
 
-	//判断子进程结束：wait子进程结束或者捕捉信号SIGCHLD
+	//判断子进程结束：wait子进程结束
 	int status;
 	if (wait(&status) != pid) 
 	{
 		perror("Error --> wait:");
 	}
-	printf("status = %d\n", status);
+	printf("exit status:%d.\n",WEXITSTATUS(status);
 	return 0;
 }
