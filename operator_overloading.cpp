@@ -26,7 +26,10 @@ int main() {
    Complex a = Complex( 1.2, 3.4 );
    Complex b = Complex( 5.6, 7.8 );
    Complex c = Complex( 0.0, 0.0 );
-
+   /*
+	   在类 Complex 中重载了运算符"+"，该重载只对 Complex 对象有效。
+	   当执行c = a + b 语句时，编译器检测到"+"号左边（"+"号具有左结合性）是一个 Complex 对象，就会调用运算符重载函数，该语句会被转换为： a.operator+(b)
+   */
    c = a + b;
    c.Display();
 }
