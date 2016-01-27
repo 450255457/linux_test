@@ -25,12 +25,12 @@ Complex Complex::operator+( Complex &other ) {
    return Complex( re + other.re, im + other.im );
 }
 
-//全局运算符重载
+//重载全局运算符-
 Complex operator-(const Complex & A, const Complex & B)
 {
 	Complex C(0.0,0.0);
 	C.re = A.re - B.re;
-	C.im = B.im - B.im;
+	C.im = A.im - B.im;
 	return C;
 }
 
