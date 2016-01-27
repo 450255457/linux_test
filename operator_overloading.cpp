@@ -10,11 +10,12 @@
 using namespace std;
 
 struct Complex {
+	Complex(){ re = 0; im = 0; }
 	Complex( double r, double i ) : re(r), im(i)/*构造函数初始值列表*/ {}
-	Complex operator+( Complex &other );
+	Complex operator+( Complex &other );	//运算符“+”重载为成员函数
 	friend Complex operator-(const Complex & A, const Complex & B);
 	friend istream &operator>>(istream &in, Complex &other);
-	friend ostream &operator<<(ostream &out, Complex &other);
+	friend ostream &operator<<(ostream &out, Complex &other);	//运算符“<<”重载为友元函数
 	void Display( ) {   cout << re << ", " << im << endl; }
 private:
 	double re, im;
@@ -59,7 +60,7 @@ int main() {
 	   当执行c = a + b 语句时，编译器检测到"+"号左边（"+"号具有左结合性）是一个 Complex 对象，就会调用运算符重载函数，该语句会被转换为： a.operator+(b)
    */
 	c = a + b;
-	cout << a << " + " << b << " = " <<c << endl;
+	cout << a << " + " << b << " = " << c << endl;	//编译系统把“cout << a”解释为operator<<(cout, a)
 	c = a - b;
 	cout << a << " - " << b << " = " << c << endl;
 	//c.Display();
